@@ -6,12 +6,13 @@ import (
 	"io"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/docker/docker/client"
 )
 
-func imageSave(images []string, destDir, clusterName string) error {
+func imageSave(images []string, dest, clusterName string) error {
 	// get a docker client
 	ctx := context.Background()
 	docker, err := client.NewEnvClient()
@@ -25,7 +26,13 @@ func imageSave(images []string, destDir, clusterName string) error {
 	}
 	defer imageReader.Close()
 
-	tarFileName := fmt.Sprintf("%s/k3d-%s-images-%s.tar", destDir, clusterName, time.Now().Format("20060102150405"))
+	tarFileName := dest
+	if !strings.HasSuffix(dest, ".tar") {
+		if !strings.HasSuffix(dest, "/") {
+			dest = dest + "/"
+		}
+		tarFileName = fmt.Sprintf("%sk3d-%s-images-%s.tar", dest, clusterName, time.Now().Format("20060102150405"))
+	}
 	tarFile, err := os.Create(tarFileName)
 	if err != nil {
 		return fmt.Errorf("ERROR: couldn't create tarfile [%s]\n%+v", tarFileName, err)

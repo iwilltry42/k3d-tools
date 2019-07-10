@@ -29,7 +29,7 @@ func main() {
 				cli.StringFlag{
 					Name:  "destination, dest, d",
 					Value: "/images",
-					Usage: "destination directory for saved images",
+					Usage: "destination tar-file (optional)",
 				},
 				cli.StringFlag{
 					Name:  "cluster, c",

@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
+	"time"
 
 	run "github.com/iwilltry42/k3d-tools/cli"
 	"github.com/iwilltry42/k3d-tools/version"
@@ -21,10 +23,10 @@ func main() {
 	// commands that you can execute
 	app.Commands = []cli.Command{
 		{
-			// check-tools verifies that docker is up and running
+			// save-image
 			Name:    "save-image",
 			Aliases: []string{"save"},
-			Usage:   "Check if docker is running",
+			Usage:   "Save images to tarball",
 			Flags: []cli.Flag{
 				cli.StringFlag{
 					Name:  "destination, dest, d",
@@ -38,6 +40,16 @@ func main() {
 				},
 			},
 			Action: run.ImageSave,
+		},
+		{
+			Name:  "noop",
+			Usage: "Don't do anything and sleep forever",
+			Action: func(c *cli.Context) {
+				for {
+					fmt.Println("Sleeping for 12h")
+					time.Sleep(12 * time.Hour)
+				}
+			},
 		},
 	}
 

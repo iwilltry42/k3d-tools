@@ -17,3 +17,5 @@ _dist/
 
 # IDEs
 .vscode/
+
+bin/

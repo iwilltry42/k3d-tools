@@ -2,6 +2,10 @@
 
 k3d-tools support the usage of [https://github.com/rancher/k3d](https://github.com/rancher/k3d)
 
+## Deprecated
+
+This got moved to a submodule: [github.com/rancher/k3d/tools](https://github.com/rancher/k3d/tree/master/tools)
+
 ## Tests
 
 Test saving images from the local docker daemon to a volume e.g. via `docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd)/images:/images --privileged iwilltry42/k3d-tools:v0.0.1 save-image nginx:local nginx:latest`
